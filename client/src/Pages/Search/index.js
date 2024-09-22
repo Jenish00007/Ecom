@@ -55,13 +55,19 @@ const SearchPage = () => {
         })
     }
 
-    const filterByPrice = (price, subCatId) => {
+    const filterByPrice = (price, subCatId ,page = 1, perPage = 10) => {
         setisLoading(true);
 
-        fetchDataFromApi(`/api/products?minPrice=${price[0]}&maxPrice=${price[1]}&subCatId=${subCatId}`).then((res) => {
-            setProductData(res.products)
+        fetchDataFromApi(`/api/products?minPrice=${price[0]}&maxPrice=${price[1]}&subCatId=${subCatId}&page=${page}&perPage=${perPage}`)
+        .then((res) => {
+          setProductData(res.products);
             setisLoading(false);
         })
+        .catch((error) => {
+      console.error('Error filtering by price:', error);
+      setisLoading(false);
+      // Handle error (e.g., show error message to user)
+    });
     }
 
     const filterByRating = (rating, subCatId) => {
