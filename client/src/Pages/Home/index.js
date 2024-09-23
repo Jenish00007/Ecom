@@ -22,6 +22,41 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import homeBannerPlaceholder from "../../assets/images/homeBannerPlaceholder.jpg";
 import Banners from "../../Components/banners";
+import Product_Slider from "../../Components/Product_Slider";
+
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+
+const styles = {
+  productRow: {
+    position: 'relative',
+    height: '500px', // Adjust this value based on your product item height
+    width: '100%',
+    marginTop: '1rem',
+  },
+  swiper: {
+    width: '100%',
+    height: '100%',
+  },
+  swiperSlide: {
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    width: '300px', // Adjust based on your product item width
+    height: '400px', // Adjust based on your product item height
+  },
+  productItem: {
+    width: '100%',
+    height: '100%',
+    borderRadius: '10px',
+    overflow: 'hidden',
+  },
+
+  
+};
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -33,7 +68,7 @@ const Home = () => {
   const [value, setValue] = React.useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
- 
+
   const context = useContext(MyContext);
 
   const handleChange = (event, newValue) => {
@@ -69,7 +104,7 @@ const Home = () => {
       setHomeSlides(res);
     });
 
-  
+
   }, []);
 
   useEffect(() => {
@@ -107,114 +142,81 @@ const Home = () => {
         <HomeCat catData={context.categoryData} />
       )}
 
+
+
+
+
+
+
+
       <section className="homeProducts">
         <div className="container">
           <div className="row homeProductsRow">
-            
+
 
             <div className="col-md-12 productRow">
-              <div className="d-flex align-items-center res-flex-column">
-                <div className="info" style={{ width: "35%" }}>
-                  <h3 className="mb-0 hd">Popular Products</h3>
-                  <p className="text-light text-sml mb-0">
-                    Do not miss the current offers until the end of March.
-                  </p>
-                </div>
+              {/* NEW PRODUCTS */}
 
-                <div
-                  className="ml-auto d-flex align-items-center justify-content-end res-full"
-                  style={{ width: "65%" }}
-                >
-                  <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    variant="scrollable"
-                    scrollButtons="auto"
-                    className="filterTabs"
-                  >
-                    {context.categoryData?.map((item, index) => {
-                      return (
-                        <Tab
-                          className="item"
-                          label={item.name}
-                          onClick={() => selectCat(item.name)}
-                        />
-                      );
-                    })}
-                  </Tabs>
-                </div>
-              </div>
-
-              <div
-                className="product_row w-100 mt-2"
-                style={{
-                  opacity: `${isLoading === true ? "0.5" : "1"}`
-                }}
-              >
-                {filterData?.length === 0 && (
-                  <div className="d-flex align-items-center justify-content-center" style={{minHeight: "300px"}}>
-                    <CircularProgress />
-                  </div>
-                )}
-
-                {context.windowWidth > 992 ? (
-                  <Swiper
-                    slidesPerView={4}
-                    spaceBetween={0}
-                    navigation={true}
-                    slidesPerGroup={context.windowWidth > 992 ? 3 : 1}
-                    modules={[Navigation]}
-                    className="mySwiper"
-                  >
-                    {filterData?.length !== 0 &&
-                      filterData
-                        ?.slice(0)
-                        ?.reverse()
-                        ?.map((item, index) => {
-                          return (
-                            <SwiperSlide key={index}>
-                              <ProductItem item={item} />
-                            </SwiperSlide>
-                          );
-                        })}
-
-                    <SwiperSlide style={{ opacity: 0 }}>
-                      <div className={`productItem`}></div>
-                    </SwiperSlide>
-                  </Swiper>
-                ) : (
-                  <div className="productScroller">
-                    {filterData?.length !== 0 &&
-                      filterData
-                        ?.slice(0)
-                        ?.reverse()
-                        ?.map((item, index) => {
-                          return <ProductItem item={item} key={index} />;
-                        })}
-                  </div>
-                )}
-              </div>
-
-             
-
-              <div className="d-flex align-items-center mt-4">
-                <div className="info w-75">
-                  <h3 className="mb-0 hd">NEW PRODUCTS</h3>
-                  <p className="text-light text-sml mb-0">
+              <div className="d-flex align-items-center justify-content-center  mt-5 mb-5">
+                <div className="info w-75 ">
+                  <h3 className="mb-0 hd text-center">NEW PRODUCTS</h3>
+                  <p className="text-light text-sml mb-0 text-center">
                     New products with updated stocks.
                   </p>
                 </div>
               </div>
 
               {productsData?.products?.length === 0 && (
-                <div className="d-flex align-items-center justify-content-center" style={{minHeight: "300px"}}>
+                <div className="d-flex align-items-center justify-content-center" style={{ minHeight: "300px" }}>
                   <CircularProgress />
                 </div>
               )}
 
 
 
-              <div className="product_row productRow2 w-100 mt-4 d-flex productScroller">
+              {/* 3d slider start */}
+              <div style={styles.productRow}>
+                <Swiper
+                  effect={'coverflow'}
+                  grabCursor={true}
+                  centeredSlides={true}
+                  slidesPerView={'auto'}
+                  coverflowEffect={{
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true,
+                  }}
+                  pagination={{ clickable: true }}
+                  navigation={true}
+                  modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+                  autoplay={{
+                    delay: 3000, // Delay between transitions (in ms)
+                    disableOnInteraction: false, // Continue autoplay after user interaction
+
+                  }}
+                  loop={true} // Enable infinite loop
+                  style={styles.swiper}
+                >
+                  {productsData?.products?.length !== 0 &&
+                    productsData?.products
+                      ?.slice(0)
+                      .reverse()
+                      .map((item, index) => (
+                        <SwiperSlide key={index} style={styles.swiperSlide}>
+                          <div style={styles.productItem}>
+                            <ProductItem item={item} />
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                </Swiper>
+              </div>
+
+              {/* 3 d slider end */}
+
+
+              {/* <div className="product_row productRow2 w-100 mt-4 d-flex productScroller">
                 {productsData?.products?.length !== 0 &&
                   productsData?.products
                     ?.slice(0)
@@ -222,11 +224,12 @@ const Home = () => {
                     .map((item, index) => {
                       return <ProductItem key={index} item={item} />;
                     })}
-              </div>
+              </div> */}
 
-              <div className="d-flex align-items-center mt-4">
+
+              <div  className="d-flex align-items-center justify-content-center mt-4">
                 <div className="info">
-                  <h3 className="mb-0 hd">featured products</h3>
+                  <h3 className="mb-0 hd text-center">featured products</h3>
                   <p className="text-light text-sml mb-0">
                     Do not miss the current offers until the end of March.
                   </p>
@@ -235,12 +238,12 @@ const Home = () => {
 
 
               {featuredProducts?.length === 0 && (
-                <div className="d-flex align-items-center justify-content-center" style={{minHeight: "300px"}}>
+                <div className="d-flex align-items-center justify-content-center" style={{ minHeight: "300px" }}>
                   <CircularProgress />
                 </div>
               )}
 
-              <div className="product_row w-100 mt-2">
+              <div className="product_row w-100 mt-5 mb-5">
                 {context.windowWidth > 992 ? (
                   <Swiper
                     slidesPerView={4}
@@ -296,9 +299,104 @@ const Home = () => {
                   </div>
                 )}
               </div>
+              {/* feature end */}
+
+              {/* popular start */}
+              <div  className="d-flex align-items-center res-flex-column mt-5 mb-5">
+                <div className="info" style={{ width: "35%" }}>
+                  <h3 className="mb-0 hd">Popular Products</h3>
+                  <p className="text-light text-sml mb-0">
+                    Do not miss the current offers until the end of March.
+                  </p>
+                </div>
+
+                <div
+                  className="ml-auto d-flex align-items-center justify-content-end res-full"
+                  style={{ width: "65%" }}
+                >
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    className="filterTabs"
+                  >
+                    {context.categoryData?.map((item, index) => {
+                      return (
+                        <Tab
+                          className="item"
+                          label={item.name}
+                          onClick={() => selectCat(item.name)}
+                        />
+                      );
+                    })}
+                  </Tabs>
+                </div>
+              </div>
+
+              <div
+                className="product_row w-100 mt-2"
+                style={{
+                  opacity: `${isLoading === true ? "0.5" : "1"}`
+                }}
+              >
+                {filterData?.length === 0 && (
+                  <div className="d-flex align-items-center justify-content-center" style={{ minHeight: "300px" }}>
+                    <CircularProgress />
+                  </div>
+                )}
+
+                {context.windowWidth > 992 ? (
+                  <Swiper
+                    slidesPerView={4}
+                    spaceBetween={0}
+                    navigation={true}
+                    slidesPerGroup={context.windowWidth > 992 ? 3 : 1}
+                    modules={[Navigation]}
+                    className="mySwiper"
+                  >
+
+                    {filterData?.length !== 0 &&
+                      filterData
+                        ?.slice(0)
+                        ?.reverse()
+                        ?.map((item, index) => {
+                          return (
+                            <SwiperSlide key={index}>
+                              <ProductItem item={item} />
+                            </SwiperSlide>
+                          );
+                        })}
+
+                    <SwiperSlide style={{ opacity: 0 }}>
+                      <div className={`productItem`}></div>
+                    </SwiperSlide>
+                  </Swiper>
+                ) : (
+                  <div className="productScroller">
+                    {filterData?.length !== 0 &&
+                      filterData
+                        ?.slice(0)
+                        ?.reverse()
+                        ?.map((item, index) => {
+                          return <ProductItem item={item} key={index} />;
+                        })}
+                  </div>
+                )}
+              </div>
+
+
+
+
             </div>
           </div>
         </div>
+
+        {/* <Product_Slider /> */}
+
+        {/* 3D Swipper */}
+
+
       </section>
     </>
   );
