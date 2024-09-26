@@ -46,40 +46,7 @@ app.use(`/api/homeBanner`, homeBannerSchema);
 app.use(`/api/search`, searchRoutes);
 app.use(`/api/banners`, bannersSchema);
 
-const express = require('express');
-const router = express.Router();
-const Product = require('../models/Product'); // Adjust the path as needed
 
-app.get('/api/products/filterByPrice', async (req, res) => {
-  try {
-    const { minPrice, maxPrice, catId, location, page = 1, perPage = 10 } = req.query;
-    
-    let filter = {};
-    
-    if (minPrice) filter.price = { $gte: parseFloat(minPrice) };
-    if (maxPrice) filter.price = { ...filter.price, $lte: parseFloat(maxPrice) };
-    if (catId) filter.catId = catId;
-    if (location && location !== 'All') filter.location = location;
-
-    const totalProducts = await Product.countDocuments(filter);
-    const totalPages = Math.ceil(totalProducts / perPage);
-
-    const products = await Product.find(filter)
-      .skip((page - 1) * perPage)
-      .limit(parseInt(perPage))
-      .exec();
-
-    res.json({
-      products,
-      currentPage: page,
-      totalPages,
-      totalProducts
-    });
-  } catch (error) {
-    console.error('Error in filterByPrice:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
 
 //Database
 mongoose.connect(process.env.CONNECTION_STRING, {
