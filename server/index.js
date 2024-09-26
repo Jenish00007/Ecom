@@ -81,8 +81,6 @@ app.get('/api/products/filterByPrice', async (req, res) => {
   }
 });
 
-module.exports = router;
-
 //Database
 mongoose.connect(process.env.CONNECTION_STRING, {
     // useNewUrlParser: true,
