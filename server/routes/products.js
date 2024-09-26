@@ -237,53 +237,53 @@ router.get(`/subCatId`, async (req, res) => {
 
  
 });
+//Last tested code
+// router.get('/api/products/filterByPrice', async (req, res) => {
+//   const page = parseInt(req.query.page) || 1;
+//   const perPage = parseInt(req.query.perPage) || 10; // Default to 10 if not provided
+//   const minPrice = parseFloat(req.query.minPrice);
+//   const maxPrice = parseFloat(req.query.maxPrice);
+//   const catId = req.query.catId;
+//   const subCatId = req.query.subCatId;
+//   const location = req.query.location;
 
-router.get('/api/products/filterByPrice', async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const perPage = parseInt(req.query.perPage) || 10; // Default to 10 if not provided
-  const minPrice = parseFloat(req.query.minPrice);
-  const maxPrice = parseFloat(req.query.maxPrice);
-  const catId = req.query.catId;
-  const subCatId = req.query.subCatId;
-  const location = req.query.location;
+//   const filter = {};
 
-  const filter = {};
+//   if (catId) filter.catId = catId;
+//   if (subCatId) filter.subCatId = subCatId;
+//   if (location && location !== 'All') filter.location = location;
 
-  if (catId) filter.catId = catId;
-  if (subCatId) filter.subCatId = subCatId;
-  if (location && location !== 'All') filter.location = location;
+//   if (!isNaN(minPrice) || !isNaN(maxPrice)) {
+//     filter.price = {};
+//     if (!isNaN(minPrice)) filter.price.$gte = minPrice;
+//     if (!isNaN(maxPrice)) filter.price.$lte = maxPrice;
+//   }
 
-  if (!isNaN(minPrice) || !isNaN(maxPrice)) {
-    filter.price = {};
-    if (!isNaN(minPrice)) filter.price.$gte = minPrice;
-    if (!isNaN(maxPrice)) filter.price.$lte = maxPrice;
-  }
+//   try {
+//     const totalPosts = await Product.countDocuments(filter);
+//     const totalPages = Math.ceil(totalPosts / perPage);
 
-  try {
-    const totalPosts = await Product.countDocuments(filter);
-    const totalPages = Math.ceil(totalPosts / perPage);
+//     if (page > totalPages) {
+//       return res.status(404).json({ message: "Page not found" });
+//     }
 
-    if (page > totalPages) {
-      return res.status(404).json({ message: "Page not found" });
-    }
+//     const productList = await Product.find(filter)
+//       .populate("category")
+//       .skip((page - 1) * perPage)
+//       .limit(perPage)
+//       .exec();
 
-    const productList = await Product.find(filter)
-      .populate("category")
-      .skip((page - 1) * perPage)
-      .limit(perPage)
-      .exec();
-
-    return res.status(200).json({
-      products: productList,
-      totalPages: totalPages,
-      currentPage: page,
-      totalProducts: totalPosts
-    });
-  } catch (error) {
-    console.error('Error in filterByPrice:', error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+//     return res.status(200).json({
+//       products: productList,
+//       totalPages: totalPages,
+//       currentPage: page,
+//       totalProducts: totalPosts
+//     });
+//   } catch (error) {
+//     console.error('Error in filterByPrice:', error);
+//     return res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
 
 // router.get(`/filterByPrice`, async (req, res) => {
 //   const page = parseInt(req.query.page) || 1;
@@ -408,7 +408,7 @@ router.get('/api/products/filterByPrice', async (req, res) => {
 //   }
 // });
 
-
+//first
 router.get(`/rating`, async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const perPage = parseInt(req.query.perPage);
