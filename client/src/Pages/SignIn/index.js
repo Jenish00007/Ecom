@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Logo from "../../assets/images/logo.jpg";
+import Logo from "../../assets/images/logo.webp";
 import { MyContext } from "../../App";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -101,7 +101,7 @@ const SignIn = () => {
   };
 
   const signInWithGoogle = () => {
-    
+
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -109,53 +109,53 @@ const SignIn = () => {
         // The signed-in user info.
         const user = result.user;
 
-        const fields={
-            name:user.providerData[0].displayName,
-            email: user.providerData[0].email,
-            password: null,
-            images:user.providerData[0].photoURL,
-            phone:user.providerData[0].phoneNumber
+        const fields = {
+          name: user.providerData[0].displayName,
+          email: user.providerData[0].email,
+          password: null,
+          images: user.providerData[0].photoURL,
+          phone: user.providerData[0].phoneNumber
         }
 
         postData("/api/user/authWithGoogle", fields).then((res) => {
-            try {
-              if (res.error !== true) {
-                localStorage.setItem("token", res.token);
-      
-                const user = {
-                  name: res.user?.name,
-                  email: res.user?.email,
-                  userId: res.user?.id,
-                };
-      
-                localStorage.setItem("user", JSON.stringify(user));
-      
-                context.setAlertBox({
-                  open: true,
-                  error: false,
-                  msg: res.msg,
-                });
-      
-                setTimeout(() => {
-                  history("/");
-                  context.setIsLogin(true);
-                  setIsLoading(false);
-                  context.setisHeaderFooterShow(true);
-                  //window.location.href = "/";
-                }, 2000);
-              } else {
-                context.setAlertBox({
-                  open: true,
-                  error: true,
-                  msg: res.msg,
-                });
+          try {
+            if (res.error !== true) {
+              localStorage.setItem("token", res.token);
+
+              const user = {
+                name: res.user?.name,
+                email: res.user?.email,
+                userId: res.user?.id,
+              };
+
+              localStorage.setItem("user", JSON.stringify(user));
+
+              context.setAlertBox({
+                open: true,
+                error: false,
+                msg: res.msg,
+              });
+
+              setTimeout(() => {
+                history("/");
+                context.setIsLogin(true);
                 setIsLoading(false);
-              }
-            } catch (error) {
-              console.log(error);
+                context.setisHeaderFooterShow(true);
+                //window.location.href = "/";
+              }, 2000);
+            } else {
+              context.setAlertBox({
+                open: true,
+                error: true,
+                msg: res.msg,
+              });
               setIsLoading(false);
             }
-          });
+          } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+          }
+        });
 
         context.setAlertBox({
           open: true,
@@ -163,7 +163,7 @@ const SignIn = () => {
           msg: "User authentication Successfully!",
         });
 
-       // window.location.href = "/";
+        // window.location.href = "/";
       })
       .catch((error) => {
         // Handle Errors here.
@@ -205,7 +205,10 @@ const SignIn = () => {
       <div className="container">
         <div className="box card p-3 shadow border-0">
           <div className="text-center">
-            <img src={Logo} />
+            <div className="logoWrapper d-flex align-items-center col-sm-2">
+              <Link to={'/'}><img style={{ width: 40 }} src={Logo} alt='Logo' /></Link>
+              <h5 style={{ fontWeight: 800, padding: 5, fontSize: '1rem' }}>Remarkablyai</h5>
+            </div>
           </div>
 
           <form className="mt-3" onSubmit={login}>

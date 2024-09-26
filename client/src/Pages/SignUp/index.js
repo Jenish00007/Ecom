@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Logo from "../../assets/images/logo.jpg";
+import Logo from "../../assets/images/logo.webp";
 import { MyContext } from "../../App";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -218,8 +218,11 @@ const SignUp = () => {
 
       <div className="container">
         <div className="box card p-3 shadow border-0">
-          <div className="text-center">
-            <img src={Logo} />
+        <div className="text-center">
+            <div className="logoWrapper d-flex align-items-center col-sm-2">
+              <Link to={'/'}><img style={{ width: 40 }} src={Logo} alt='Logo' /></Link>
+              <h5 style={{ fontWeight: 800, padding: 5, fontSize: '1rem' }}>Remarkablyai</h5>
+            </div>
           </div>
 
           <form className="mt-2" onSubmit={register}>

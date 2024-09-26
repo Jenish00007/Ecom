@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
-import newsLetterImg from '../../assets/images/newsletter.png';
+import footer_vector from '../../assets/images/footer_vector.webp';
+import icons8jewellery from '../../assets/images/icons8-jewellery-24.png';
 import Button from '@mui/material/Button';
 import { IoMailOutline } from "react-icons/io5";
 
@@ -32,7 +33,7 @@ const Footer = () => {
                         </div>
 
                         <div className="col-md-6">
-                            <img src={newsLetterImg} />
+                            <img src={footer_vector} />
                         </div>
                     </div>
                 </div>
@@ -41,7 +42,7 @@ const Footer = () => {
                 <div className="container">
                     <div className="topInfo row">
                         <div className="col d-flex align-items-center">
-                            <span><LuShirt /></span>
+                            <span> <img src={icons8jewellery} /></span>
                             <span className="ml-2">Everyday fresh products</span>
                         </div>
 
@@ -133,7 +134,7 @@ const Footer = () => {
 
 
                     <div className="copyright mt-3 pt-3 pb-3 d-flex">
-                        <p className="mb-0">Copyright 2024. All rights reserved</p>
+                        <p className="mb-0">2024 © REMARKABLY AI. All Rights Reserved.</p>
                         <ul className="list list-inline ml-auto mb-0 socials">
                             <li className="list-inline-item">
                                 <Link to="#"><FaFacebookF /></Link>

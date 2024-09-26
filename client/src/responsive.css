@@ -774,3 +774,20 @@
 }
 
 @media only screen and (min-width:320px) and (max-width:1100px) {}
+
+
+
+/* styles.css */
+
+@media (min-width: 600px) {
+  .below {
+    display: none;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .above {
+    display: none;
+  }
+}

@@ -86,8 +86,6 @@ function App() {
         });
 
        setsubCategoryData(subCatArr);
-
-
     });
 
   

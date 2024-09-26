@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Logo from '../../assets/images/logo2.png';
+import Logo from '../../assets/images/logo.webp';
 import Button from '@mui/material/Button';
 import CountryDropdown from '../CountryDropdown';
 import { FiUser } from "react-icons/fi";
@@ -97,7 +97,8 @@ const Header = () => {
                         <div className="container">
                             <div className="row">
                                 <div className="logoWrapper d-flex align-items-center col-sm-2">
-                                    <Link to={'/'}><img src={Logo} alt='Logo' /></Link>
+                                    <Link to={'/'}><img style={{width:40}} src={Logo} alt='Logo' /></Link>
+                                    <h5 style={{fontWeight:800,padding:5,fontSize:'1rem'}}>Remarkablyai</h5>
                                 </div>
 
                                 <div className='col-sm-10 d-flex align-items-center part2'>
