@@ -134,7 +134,25 @@ const ProductItem = (props) => {
         }
 
     }
-
+    const handleClick = () => {
+        const productId = props?.itemView === 'recentlyView' ? props.item?.prodId : props.item?.id;
+        const catName = props.item?.catName?.toLowerCase(); // Convert category name to lowercase
+        
+        // Get the original filename
+        const originalFilename = props.item?.images[0].split('/').pop();
+        
+        // Remove everything before the underscore
+        const filename = originalFilename.split('_').slice(1).join('_');
+        
+        const url = `https://91.132.134.185:8080/${catName}/${filename}`;
+        console.log(`Selected Product ID: ${productId}`);
+        console.log(`Cat Name: ${catName}`);
+        console.log(`Image URL: ${url}`);
+        window.open(url, '_blank');
+    };
+    
+    
+    
     return (
         <>
             <div className={`productItem ${props.itemView}`}
@@ -209,11 +227,9 @@ const ProductItem = (props) => {
                     <div className="d-flex ">
                         <span className="oldPrice">Rs {props?.item?.oldPrice}</span>
                         <span className="netPrice text-danger ml-2">Rs {props?.item?.price}</span>
-                        <span className="netPrice text-danger ml-2 above">  <Button style={{ marginTop: -7,backgroundColor: '#f1e7e8', color: 'black'}} >Try-on</Button></span>
+                        <span className="netPrice text-danger ml-2 above">  <Button onClick={handleClick} style={{ marginTop: -7,backgroundColor: '#f1e7e8', color: 'black'}} >Try-on</Button></span>
                     </div>
                 </div>
-
-
             </div>
 
 

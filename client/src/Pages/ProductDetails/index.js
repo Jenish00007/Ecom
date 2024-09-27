@@ -181,6 +181,7 @@ const ProductDetails = () => {
         productId: id,
         userId: user?.userId,
       };
+      
       postData(`/api/my-list/add/`, data).then((res) => {
         if (res.status !== false) {
           context.setAlertBox({
@@ -214,11 +215,17 @@ const ProductDetails = () => {
   };
 
   const handleClick = () => {
-    // Construct the URL dynamically
-    const url = `https://localhost:8080/${productData.name}`;
-    // Open the constructed URL in a new tab
+    const catName = productData.catName.toLowerCase(); // Convert category name to lowercase
+    const originalFilename = productData.images[0].split('/').pop();
+    
+    // Remove everything before the underscore
+    const filename = originalFilename.split('_').slice(1).join('_');
+    
+    const url = `https://91.132.134.185:8080/${catName}/${filename}`;
+    
     window.open(url, '_blank');
-  };
+};
+
   
 
   return (
@@ -284,7 +291,7 @@ const ProductDetails = () => {
                   <span className="badge badge-danger">OUT OF STOCK</span>
                 )}
 
-                <p className="mt-3">Rs: {productData?.description}</p>
+                <p className="mt-3"> {productData?.description}</p>
 
                 {productData?.productRam?.length !== 0 && (
                   <div className="productSize d-flex align-items-center">
@@ -405,7 +412,7 @@ const ProductDetails = () => {
                 </div>
                 <div className=" mt-2">
                   <Button onClick={handleClick}
-                    className="btn-blue btn-lg btn-big btn-round">Try it</Button>
+                    className="btn-blue btn-lg btn-big btn-round">Try-On</Button>
                 </div>    </div>
             </div>
           )}

@@ -187,15 +187,16 @@ const Listing = () => {
 
   return (
     <>
-      <section className="product_Listing_Page pt-5">
+    {/* product_Listing_Page is tthe css class name*/}
+      <section className=" pt-5">
         <div className="container">
           <div className="productListing d-flex">
-            <Sidebar
+            {/* <Sidebar
               filterData={filterData}
               filterByPrice={filterByPrice}
               filterByRating={filterByRating}
               isOpenFilter={isOpenFilter}
-            />
+            /> */}
 
             <div className="content_right">
               <div className="showBy mt-0 mb-3 d-flex align-items-center">
