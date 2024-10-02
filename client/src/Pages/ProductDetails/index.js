@@ -219,11 +219,11 @@ const ProductDetails = () => {
     const originalFilename = productData.images[0].split('/').pop();
     
     // Remove everything before the underscore
-    const filename = originalFilename.split('_').slice(1).join('_');
+    const filename = originalFilename.split('_').slice(1).join('_').replace(/\.jpg$/, '.png');
     
     const url = `https://91.132.134.185:8080/${catName}/${filename}`;
     
-    window.open(url, '_blank');
+    window.location.href = url;
 };
 
   

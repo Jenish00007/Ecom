@@ -231,7 +231,7 @@ const Home = () => {
                 <div className="info">
                   <h3 className="mb-0 hd text-center">featured products</h3>
                   <p className="text-light text-sml mb-0">
-                    Do not miss the current offers until the end of March.
+                    Do not miss the current offers until the end of December.
                   </p>
                 </div>
               </div>

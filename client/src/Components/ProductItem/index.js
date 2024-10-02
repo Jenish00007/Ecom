@@ -84,9 +84,14 @@ const ProductItem = (props) => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
+            console.log(`originalFilename Name: ${props.item?.images[0].split('/').pop()}`);
         }, 500);
     }, []);
-
+    useEffect(() => {
+       
+            console.log(`originalFilename Name: ${props.item?.images[0].split('/').pop()}`);
+     
+    }, []);
 
     const addToMyList = (id) => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -134,22 +139,24 @@ const ProductItem = (props) => {
         }
 
     }
+    
     const handleClick = () => {
-        const productId = props?.itemView === 'recentlyView' ? props.item?.prodId : props.item?.id;
+     
         const catName = props.item?.catName?.toLowerCase(); // Convert category name to lowercase
-        
+    
         // Get the original filename
         const originalFilename = props.item?.images[0].split('/').pop();
-        
+    
         // Remove everything before the underscore
-        const filename = originalFilename.split('_').slice(1).join('_');
-        
+        const filename = originalFilename.split('_').slice(1).join('_').replace(/\.jpg$/, '.png');
+    
         const url = `https://91.132.134.185:8080/${catName}/${filename}`;
-        console.log(`Selected Product ID: ${productId}`);
-        console.log(`Cat Name: ${catName}`);
+
+      
         console.log(`Image URL: ${url}`);
-        window.open(url, '_blank');
+        window.location.href = url;
     };
+    
     
     
     
@@ -217,7 +224,7 @@ const ProductItem = (props) => {
 
                     {
                         props?.item?.countInStock >= 1 ? <span className="text-success d-block">In Stock    <span className="netPrice text-danger ml-2 below">
-                              <Button style={{ marginTop: -7, marginLeft: '10%', backgroundColor: '#f1e7e8', color: 'black'}} >Try-on</Button>
+                              <Button onClick={handleClick} style={{ marginTop: -7, marginLeft: '0%', backgroundColor: '#f1e7e8', color: 'black'}} >Try-on</Button>
                               </span></span>
                             :
                             <span className="text-danger d-block">Out of Stock</span>

@@ -107,7 +107,7 @@ const Listing = () => {
     // });
 
 
-      history(`/products/subCat/${subCatId}`)
+    history(`/products/subCat/${subCatId}`)
 
   };
 
@@ -117,18 +117,16 @@ const Listing = () => {
 
 
     if (window_url.includes("subCat")) {
-      api_EndPoint = `/api/products/filterByPrice?minPrice=${
-        price[0]
-      }&maxPrice=${price[1]}&subCatId=${id}&location=${localStorage.getItem(
-        "location"
-      )}`;
+      api_EndPoint = `/api/products/filterByPrice?minPrice=${price[0]
+        }&maxPrice=${price[1]}&subCatId=${id}&location=${localStorage.getItem(
+          "location"
+        )}`;
     }
     if (window_url.includes("category")) {
-      api_EndPoint = `/api/products/filterByPrice?minPrice=${
-        price[0]
-      }&maxPrice=${price[1]}&catId=${id}&location=${localStorage.getItem(
-        "location"
-      )}`;
+      api_EndPoint = `/api/products/filterByPrice?minPrice=${price[0]
+        }&maxPrice=${price[1]}&catId=${id}&location=${localStorage.getItem(
+          "location"
+        )}`;
     }
 
     setisLoading(true);
@@ -187,10 +185,11 @@ const Listing = () => {
 
   return (
     <>
-    {/* product_Listing_Page is tthe css class name*/}
-      <section className=" pt-5">
-        <div className="container">
-          <div className="productListing d-flex">
+      {/* product_Listing_Page , productListing PRODUCT CATEGORIES*/}
+      <section className="product_Listing_Page pt-5">
+        <div className=" container">
+          <div className=" d-flex">
+
             {/* <Sidebar
               filterData={filterData}
               filterByPrice={filterByPrice}
@@ -232,25 +231,23 @@ const Listing = () => {
                   <>
                     {productData?.products?.slice(0)
                       .reverse().map((item, index) => {
-                      return (
-                        <ProductItem
-                          key={index}
-                          itemView={productView}
-                          item={item}
-                        />
-                      );
-                    })}
+                        return (
+                          <ProductItem
+                            key={index}
+                            itemView={productView}
+                            item={item}
+                          />
+                        );
+                      })}
                   </>
                 )}
               </div>
-              
-              
             </div>
           </div>
         </div>
       </section>
 
-      {context.windowWidth < 992 && (
+      {/* {context.windowWidth < 992 && (
         <>
           {context.isOpenNav === false && (
             <div className="fixedBtn row">
@@ -266,7 +263,8 @@ const Listing = () => {
             </div>
           )}
         </>
-      )}
+      )}  */}
+
     </>
   );
 };
